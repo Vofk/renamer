@@ -38,8 +38,10 @@ replacer = {'_': ' ',
             }
 
 
-# Предварительная подготовка имени файла
-def nameprep(file_path):
+def name_prep(file_path):
+    """
+    Предварительная подготовка имени файла
+    """
     new_name = os.path.basename(file_path).upper()
     new_name = re.sub(r"^\s+", "", new_name)
     for r in replacer:
@@ -58,10 +60,13 @@ def nameprep(file_path):
 
     return new_name
 
-# Возвращает дату создания файла в формате ДДММГГ
-
 
 def getdate(file_path):
+    """
+    Возвращает дату создания файла в формате ДДММГГ
+    :param file_path:
+    :return:
+    """
     stat = os.stat(file_path)
     print("btime = ", datetime.fromtimestamp(stat.st_birthtime).strftime("%d%m%y"))
     print("atime = ", datetime.fromtimestamp(stat.st_atime).strftime("%d%m%y"))
@@ -91,7 +96,7 @@ if __name__ == '__main__':
         print(date_file)
         print(f'ISX NAME: {f}')
 
-        name_temp, ext_temp = nameprep(join(base_path, f)).split('.')     # храним отдельно имя и расширение файла
+        name_temp, ext_temp = name_prep(join(base_path, f)).split('.')     # храним отдельно имя и расширение файла
         del_parts = []                                                   # список частей на удаление
         new_parts = ['U24', 'PROJECT', 'DATE', 'TYPE']                   # список обязательных частей
 
